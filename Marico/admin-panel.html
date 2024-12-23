@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - PackTrack</title>
+    <style>
+        /* Basic Styles for Admin Panel */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #197edc;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2d6bde;
+        }
+
+        .user-list {
+            margin-top: 30px;
+            list-style-type: none;
+        }
+
+        .user-list li {
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #e7f3e7;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Admin Panel - Create Employee</h2>
+
+    <div>
+        <div class="input-group">
+            <label for="emp-name">Employee Name:</label>
+            <input type="text" id="emp-name" placeholder="Enter employee name">
+        </div>
+        <div class="input-group">
+            <label for="emp-username">Username:</label>
+            <input type="text" id="emp-username" placeholder="Enter username">
+        </div>
+        <div class="input-group">
+            <label for="emp-password">Password:</label>
+            <input type="password" id="emp-password" placeholder="Enter password">
+        </div>
+        <button id="create-employee">Create Employee</button>
+    </div>
+
+    <h3>Employee List</h3>
+    <ul id="employee-list" class="user-list"></ul>
+
+    <script>
+        var employeeList = [];
+
+        // Function to create employee and add to the list
+        document.getElementById("create-employee").addEventListener("click", function() {
+            var empName = document.getElementById("emp-name").value;
+            var empUsername = document.getElementById("emp-username").value;
+            var empPassword = document.getElementById("emp-password").value;
+
+            if (empName && empUsername && empPassword) {
+                var newEmployee = { name: empName, username: empUsername, password: empPassword };
+                employeeList.push(newEmployee);
+
+                // Clear the form inputs
+                document.getElementById("emp-name").value = '';
+                document.getElementById("emp-username").value = '';
+                document.getElementById("emp-password").value = '';
+
+                // Update the employee list display
+                displayEmployeeList();
+            } else {
+                alert("Please fill all fields!");
+            }
+        });
+
+        // Function to display employee list
+        function displayEmployeeList() {
+            var listElement = document.getElementById("employee-list");
+            listElement.innerHTML = ''; // Clear the current list
+
+            employeeList.forEach(function(employee) {
+                var li = document.createElement("li");
+                li.textContent = `Name: ${employee.name}, Username: ${employee.username}`;
+                listElement.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>
